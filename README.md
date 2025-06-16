@@ -1,46 +1,105 @@
-# Getting Started with Create React App
+# Тестовое задание на позицию frontend разработчика в компанию [BIOCAD](https://biocad.ru/) в Департамент Вычислительной Биологии
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+В рамках департамента есть Группа Разработки Интерфейсов, которая занимается созданием интерфейсов для продуктов
+департамента. Так как проект связан с биологией, в тестовом задании мы постарались включить элемент погружения в
+биологический контекст.
 
-## Available Scripts
+### Стек наших проектов:
 
-In the project directory, you can run:
+- Webpack
+- TypeScript
+- React
+- React-query
+- MUI (с собственной кастомной темой)
+- react-hook-form
+- Storybook
+- Jest + Cypress для тестирования
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Цель тестового задания:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Сделать инструмент для
+визуализации [выравнивания аминокислотных последовательностей](https://biomolecula.ru/articles/12-metodov-v-kartinkakh-sukhaia-biologiia).
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Немного биологического экскурса
 
-### `npm run build`
+В области вычислительной биологии и биоинформатики одним из важнейших методов анализа белковых последовательностей
+является их выравнивание. Это позволяет определить сходство и различия между множеством последовательностей, исследовать
+функцию белков и их связи с другими белками.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Вот так может выглядеть аминокислотная последовательность (например, гемоглобин из мангуста) в буквенном представлении:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`VLSPADKTNIKASWEKIGSHGGEYGAEALERTFLCFPTTKTYFPHFDLSHGSAQVKAHGKKVADALTNAVGHLDDLPGALSALSDLHAYKLRVDPVNFKLLSHCLLVTLASHHPAEFT`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+А вот её же представление в 3d — https://www.rcsb.org/3d-view/4YU3/1.
 
-### `npm run eject`
+Каждая "буква" — это аминокислота, обладающая своими физическими и биологическими свойствами, которые влияют на
+структуру и функцию белка.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Теперь важно понять:** разные белки или даже разные участки одного белка могут иметь [сколь угодно отличающиеся
+последовательности аминокислот](https://biomolecula.ru/img/content/2301/06.mnozhestvennoe-vyravnivanie.png). Анализ и сравнение таких последовательностей помогает выявить общие функции или
+эволюционные связи.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Именно для этого используется метод выравнивания аминокислотных последовательностей.** Он позволяет "накладывать" одну
+последовательность на другую так, чтобы максимально подчеркнуть их сходства и различия — например, выделить
+консервативные участки, которые важны для функции белка.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Цель инструмента
 
-## Learn More
+Инструмент должен содержать 2 инпута для ввода аминокислотных последовательностей и кнопку, по клику по которой ниже
+должна появляться визуализация выравнивания.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Требование к тестовому заданию:
+
+1. Использовать TypeScript и React.
+2. Использовать библиотеку для работы с формами по своему усмотрению.
+3. Использовать UI-библиотеку по своему усмотрению.
+4. Задеплоить сбилженный проект на [GitHub Pages](https://github.com/gitname/react-gh-pages) и предоставить ссылку.
+
+---
+
+## Требования к инструменту:
+
+1. Инпуты ввода аминокислотных последовательностей должны принимать строки следующего формата:`VLSPADKTNIKASWEKIGSHG`.
+2. Инпуты обязательны для заполнения, могут содержать только латинские буквы аминокислот (A, R, N, D, C, E, Q, G, H, I,
+   L, K, M, F, P, S, T, W, Y, V) и символ `-`.
+3. Инпуты должны иметь проверку на то, что длина введенных последовательностей в обоих полях одинаковая.
+3. Сабмит по кнопке должен отображать под формой визуализацию выравнивания, представляющая из себя 2 строки,
+   отрисованные друг под другом.
+   Например, на вход введены `АААААА` и `GGGGGG`. Должно выглядеть так:
+
+```javascript
+AAAAAA
+GGGGGG
+   ```
+
+4. В верхней строке каждая буква должна быть окрашена фоном в свой цвет в соответствии со свойствами аминокислот
+   ![color_scheme.png](../img/color_scheme.png).
+5. В нижней строке фоном должны быть выделены только буквы, отличающиеся от соответствующей по индексу буквы в строке
+   выше.
+6. Инструмент должен быть адаптивен и выглядеть прилично на минимальном разрешении до 320px при динамическом изменении
+   ширины экрана.
+7. Строки с аминокислотными последовательностями должны переноситься на другую строку при сужении экрана и продолжать
+   размещаться друг под другом. Например, на вход введены `АААААА` и `GGGGGG`. Должно выглядеть так:
+
+```javascript
+AAA
+GGG
+AAA
+GGG
+```
+
+8. (пункт со звездочкой) На странице должен корректно работать встроенный поиск по части последовательности (при
+   помощи `cmd+F` или `ctrl+F`).
+9. (пункт со звездочкой) При выделении мышкой части последовательности она должна вставляться в буфер обмена и должно
+   появляться всплывающее
+   уведомление о том, что последовательность скопирована, пропадающее через секунду после появления.
+
+   
